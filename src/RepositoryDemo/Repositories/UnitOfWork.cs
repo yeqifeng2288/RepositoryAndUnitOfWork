@@ -28,8 +28,7 @@ namespace RepositoryDemo.Repositories
                 var name = typeof(TEntity).FullName.GetHashCode();
                 if (!_repositoryContainer.Value.ContainsKey(name))
                 {
-                    var repositoryInstance = Activator.CreateInstance(typeof(Repository<>).MakeGenericType(typeof(TEntity)), _dbContext);
-                    _repositoryContainer.Value.Add(name, repositoryInstance);
+                    _repositoryContainer.Value.Add(name, new Repository<TEntity>(_dbContext));
                 }
 
                 return _repositoryContainer.Value[name] as IRepository<TEntity>;

@@ -35,7 +35,13 @@ namespace RepositoryDemo
             });
 
             services.AddScoped<IUnitOfWork<BookDbContext>, UnitOfWork<BookDbContext>>();
-            ////services.AddScoped<IRepository<Book>, BookRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IRepository<Book>, BookRepository>();
+
+            #region 如果确定类型
+            //services.AddScoped<DbContext, BookDbContext>();
+            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            #endregion
             services.AddControllers();
         }
 

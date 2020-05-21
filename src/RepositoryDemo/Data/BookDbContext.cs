@@ -11,6 +11,7 @@ namespace RepositoryDemo.Data
     {
         public BookDbContext(DbContextOptions<BookDbContext> contextOptions) : base(contextOptions)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<Book> Books { get; set; }
@@ -26,6 +27,16 @@ namespace RepositoryDemo.Data
                 {
                     Id = 1,
                     Title = "书一"
+                },
+                new Book
+                {
+                    Id = 2,
+                    Title = "书二"
+                },
+                new Book
+                {
+                    Id = 3,
+                    Title = "书三"
                 });
 
             base.OnModelCreating(modelBuilder);

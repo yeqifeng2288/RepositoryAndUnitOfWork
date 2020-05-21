@@ -22,11 +22,10 @@ namespace RepositoryDemo.Controllers
         public async Task<ActionResult<Book>> Get()
         {
             var book = await _repository.FindAsync(1);
-            if (book == null)
-            {
-                await _repository.AddAsync(new Book { Id = 1, Title = "TestBook" });
-                _ = await _unitOfWork.Commit();
-            }
+            if (!await _repository.ExistsAsync(o => o.Id == 4))
+                await _repository.AddAsync(new Book { Id = 4, Title = "TestBook" });
+
+            _ = await _unitOfWork.Commit();
 
             return book;
         }

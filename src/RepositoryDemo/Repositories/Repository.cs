@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RepositoryDemo.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RepositoryDemo.Repositories
@@ -33,6 +35,11 @@ namespace RepositoryDemo.Repositories
         public void Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
+        }
+
+        public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbSet.AnyAsync(predicate);
         }
     }
 }
